@@ -3,6 +3,7 @@ import webpack from 'webpack';
 
 
 const config = {
+  mode: 'development',
   entry: {
     index: path.resolve(__dirname, 'src/index.js'),
   },
