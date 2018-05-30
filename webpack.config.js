@@ -2,16 +2,19 @@ import path from 'path';
 import webpack from 'webpack';
 
 
+const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
+const devtool = process.env.NODE_ENV === 'production' ? '' : 'cheap-module-eval-source-map';
+
 const config = {
-  mode: 'development',
+  mode,
+  devtool,
   entry: {
-    index: path.resolve(__dirname, 'src/index.js'),
+    index: path.resolve(__dirname, 'src/client/index.js'),
   },
   output: {
     filename: '[name].js',
-    publicPath: '/js',
+    publicPath: '/public/js',
   },
-  devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
       {
