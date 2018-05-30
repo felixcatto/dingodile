@@ -9,6 +9,7 @@ export default class ToDoComponent extends React.Component {
         <div className="row">
           <div className="col-6">
             vasa eto boroda
+            <i className="fa fa-check"></i>
           </div>
           <div className="col-6">
             privet medved

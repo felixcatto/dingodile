@@ -39,6 +39,9 @@ const reloadDevServer = (done) => {
 const copyLayout = () => gulp.src('src/index.html').pipe(gulp.dest('dist'));
 
 
+const copyAssets = () => gulp.src('src/public/**/*').pipe(gulp.dest('dist/public'));
+
+
 const transpileScss = () => gulp.src('src/**/*.scss')
   .pipe(sass())
   .pipe(postcss([cssImport()]))
@@ -63,6 +66,7 @@ const dev = gulp.series(
   clean,
   copyLayout,
   transpileScss,
+  copyAssets,
   startDevServer,
   watch,
 );
