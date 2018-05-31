@@ -1,0 +1,31 @@
+.category-list {
+  border-radius: 4px;
+  background: #fff;
+  color: #333;
+}
+
+
+
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid lightgray;
+  &:last-child {
+    border-bottom: none;
+  }
+  &__controls {
+    padding-right: 5px;
+  }
+  &__control {
+    margin-right: 2px;
+    padding: 2px;
+    color: steelblue;
+    cursor: pointer;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

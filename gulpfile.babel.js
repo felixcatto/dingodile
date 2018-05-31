@@ -2,6 +2,7 @@ import gulp from 'gulp';
 import del from 'del';
 import rename from 'gulp-rename';
 import sass from 'gulp-sass';
+import concat from 'gulp-concat';
 import postcss from 'gulp-postcss';
 import cssImport from 'postcss-import';
 import webpack from 'webpack';
@@ -44,7 +45,7 @@ const copyAssets = () => gulp.src('src/public/**/*').pipe(gulp.dest('dist/public
 const transpileScss = () => gulp.src('src/**/*.scss')
   .pipe(sass())
   .pipe(postcss([cssImport()]))
-  .pipe(rename('index.css'))
+  .pipe(concat('index.css'))
   .pipe(gulp.dest('dist/public/css'));
 
 

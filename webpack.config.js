@@ -5,7 +5,7 @@ import webpack from 'webpack';
 const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 const devtool = process.env.NODE_ENV === 'production' ? '' : 'cheap-module-eval-source-map';
 
-const config = {
+export default {
   mode,
   devtool,
   entry: {
@@ -34,5 +34,3 @@ const config = {
     ],
   },
 };
-
-export default config;
