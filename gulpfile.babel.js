@@ -1,5 +1,4 @@
 import gulp from 'gulp';
-import babel from 'gulp-babel';
 import del from 'del';
 import rename from 'gulp-rename';
 import sass from 'gulp-sass';
