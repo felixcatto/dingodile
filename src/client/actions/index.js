@@ -1,3 +1,5 @@
 import { createAction } from 'redux-actions';
 
-export const makeSomething = createAction('ENTITY_MAKE_SOMETHING');
+export const addCategory = createAction('CATEGORY_ADD');
+export const removeCategory = createAction('CATEGORY_REMOVE');
+export const updateCategory = createAction('CATEGORY_UPDATE');

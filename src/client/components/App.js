@@ -1,6 +1,6 @@
 import React from 'react';
-import CategoriesPanel from './CategoriesPanel';
-import CategoriesList from './CategoriesList';
+import CategoriesPanel from '../containers/CategoriesPanel';
+import CategoriesList from '../containers/CategoriesList';
 import TasksPanel from './TasksPanel';
 import TasksList from './TasksList';
 
