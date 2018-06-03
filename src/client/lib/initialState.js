@@ -11,4 +11,24 @@ export default {
       parentCategoryId: null,
     },
   },
+  tasks: {
+    '102': {
+      id: '102',
+      categoryId: '100',
+      text: 'To-Do Item #1',
+      isDone: false,
+    },
+    '103': {
+      id: '103',
+      categoryId: '100',
+      text: 'To-Do Item #2',
+      isDone: false,
+    },
+    '104': {
+      id: '104',
+      categoryId: '100',
+      text: 'To-Do Item #3',
+      isDone: false,
+    },
+  }
 };

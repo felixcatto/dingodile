@@ -18,6 +18,17 @@ const categories = handleActions({
   },
 }, initialState.categories);
 
+const tasks = handleActions({
+  [actions.addTask]: (state, { payload: task }) => {
+    const id = uniqueId();
+    return {
+      ...state,
+      [id]: { id, ...task },
+    };
+  },
+}, initialState.tasks);
+
 export default combineReducers({
   categories,
+  tasks,
 });

@@ -1,8 +1,8 @@
 import React from 'react';
 import CategoriesPanel from '../containers/CategoriesPanel';
 import CategoriesList from '../containers/CategoriesList';
-import TasksPanel from './TasksPanel';
-import TasksList from './TasksList';
+import TasksPanel from '../containers/TasksPanel';
+import TasksList from '../containers/TasksList';
 
 
 export default class extends React.Component {
