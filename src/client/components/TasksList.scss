@@ -19,10 +19,16 @@
   &:last-child {
     border-bottom: none;
   }
-  &__text {
+  &__text-wrap {
     flex: 1 1 auto;
     padding-left: 15px;
     padding-right: 15px;
+    &_done {
+      opacity: 0.6;
+    }
+  }
+  &__matched-text {
+    text-decoration: underline;
   }
   &__edit-icon {
     padding: 2px;

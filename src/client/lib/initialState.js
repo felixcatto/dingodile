@@ -22,7 +22,7 @@ export default {
       id: '103',
       categoryId: '100',
       text: 'To-Do Item #2',
-      isDone: false,
+      isDone: true,
     },
     '104': {
       id: '104',
