@@ -1,15 +1,21 @@
+import React from 'react';
+import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 import { uniqueId, omit } from 'lodash';
+import update from 'immutability-helper';
 import * as actions from '../actions';
 import initialState from '../lib/initialState';
 
 
-export const categories = handleActions({
+const list = handleActions({
+  '@@INIT': state => Object.keys(state).reduce((acc, key) => update(acc, {
+      [key]: { $merge: { inputRef: React.createRef() } },
+    }), state),
   [actions.addCategory]: (state, { payload }) => {
-    const category = { id: uniqueId(), ...payload };
+    const id = uniqueId();
     return {
       ...state,
-      [category.id]: category,
+      [id]: { id, ...payload },
     };
   },
   [actions.removeCategory]: (state, { payload: id }) => omit(state, id),
@@ -18,7 +24,11 @@ export const categories = handleActions({
     const category = state[id];
     return {
       ...state,
-      [payload.id]: { ...category, name: newCategoryName },
+      [id]: { ...category, name: newCategoryName },
     };
   },
 }, initialState.categories);
+
+export const categories = combineReducers({
+  list,
+});

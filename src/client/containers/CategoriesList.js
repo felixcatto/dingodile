@@ -4,7 +4,7 @@ import * as actionCreators from '../actions';
 
 
 const mapStateToProps = state => ({
-  categories: state.categories,
+  categories: Object.values(state.categories.list),
 });
 
 export default connect(mapStateToProps, actionCreators)(CategoriesList);

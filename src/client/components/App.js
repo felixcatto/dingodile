@@ -5,7 +5,7 @@ import TasksPanel from '../containers/TasksPanel';
 import TasksList from '../containers/TasksList';
 
 
-export default class extends React.Component {
+export default class App extends React.Component {
   render() {
     return (
       <div className="container pt-30">

@@ -1,81 +1,45 @@
 import React from 'react';
 import cn from 'classnames';
-import update from 'immutability-helper';
 
-
-const updateCategories = categories => Object.keys(categories)
-  .reduce((acc, id) => update(acc, {
-    [id]: {
-      $apply: category => ({
-        ...category,
-        newCategoryName: category.name,
-        isInEditMode: false,
-        inputRef: React.createRef(),
-      }),
-    },
-  }), categories);
 
 export default class CategoriesList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { categories: updateCategories(this.props.categories) };
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    const propsCategoryNames = Object.values(props.categories).map(el => el.name).join();
-    const stateCategoryNames = Object.values(state.categories).map(el => el.name).join();
-    const isCategoriesNamesChanged = propsCategoryNames !== stateCategoryNames;
-    if (isCategoriesNamesChanged) {
-      return { categories: updateCategories(props.categories) };
-    }
-    return null;
+  state = {
+    newCategoryName: '',
+    categoryInEditModeId: '',
   }
 
   removeCategory = id => () => this.props.removeCategory(id)
 
-  editCategory = id => () => {
-    const newState = update(this.state, {
-      categories: {
-        [id]: { $merge: { isInEditMode: true } },
-      },
-    });
-    this.setState(() => newState);
-    setTimeout(() => newState.categories[id].inputRef.current.focus(), 50);
-  }
-
-  saveCategory = id => (e) => {
-    if (e.type === 'keydown' && e.key !== 'Enter') return;
-
-    const { categories } = this.state;
-    const newCategoryName = categories[id].newCategoryName;
-    const newState = update(this.state, {
-      categories: {
-        [id]: { $merge: { isInEditMode: false } },
-      },
-    });
-    this.setState(() => newState);
-    this.props.updateCategory({ newCategoryName, id });
+  editCategoryName = (id, name, inputRef) => () => {
+    this.setState(() => ({
+      newCategoryName: name,
+      categoryInEditModeId: id,
+    }));
+    setTimeout(() => inputRef.current.focus(), 50);
   }
 
   updateCategoryName = id => (e) => {
-    const newCategoryName = e.target.value;
-    const newState = update(this.state, {
-      categories: {
-        [id]: { $merge: { newCategoryName } },
-      },
-    });
-    this.setState(() => newState);
+    if (e.type === 'keydown' && e.key !== 'Enter') return;
+
+    const { newCategoryName } = this.state;
+    this.setState(() => ({ categoryInEditModeId: ''}));
+    this.props.updateCategory({ newCategoryName, id });
   }
 
-  getInputRef = id => this.state.categories[id].inputRef
+  updateCategoryTmpName = (e) => {
+    const newCategoryName = e.target.value;
+    this.setState(() => ({ newCategoryName }));
+  }
+
 
   render() {
-    const categories = Object.values(this.state.categories);
-    const inputClass = isInEditMode => cn('category-item__input', {
-      'd-none': !isInEditMode,
+    const { categories } = this.props;
+    const { newCategoryName, categoryInEditModeId } = this.state;
+    const inputClass = id => cn('category-item__input', {
+      'd-none': id !== categoryInEditModeId,
     });
-    const textClass = isInEditMode => cn('category-item__text', {
-      'd-none': isInEditMode,
+    const textClass = id => cn('category-item__text', {
+      'd-none': id === categoryInEditModeId,
     });
 
     return (
@@ -83,19 +47,19 @@ export default class CategoriesList extends React.Component {
         {categories.map(el => (
           <div className="category-item" key={el.id}>
             <div>
-              <input className={inputClass(el.isInEditMode)} placeholder="Edit me pls"
-                ref={this.getInputRef(el.id)} value={el.newCategoryName}
-                onChange={this.updateCategoryName(el.id)}
-                onKeyDown={this.saveCategory(el.id)}/>
-              <div className={textClass(el.isInEditMode)}>{el.name}</div>
+              <input className={inputClass(el.id)} placeholder="Edit me pls"
+                value={newCategoryName} ref={el.inputRef}
+                onChange={this.updateCategoryTmpName}
+                onKeyDown={this.updateCategoryName(el.id)}/>
+              <div className={textClass(el.id)}>{el.name}</div>
             </div>
             <div className="category-item__controls">
-              {el.isInEditMode ?
+              {el.id === categoryInEditModeId ?
                 <i className="category-item__control fa fa-save"
-                  onClick={this.saveCategory(el.id)}></i>
+                  onClick={this.updateCategoryName(el.id)}></i>
               :
                 <i className="category-item__control fa fa-edit"
-                  onClick={this.editCategory(el.id)}></i>
+                  onClick={this.editCategoryName(el.id, el.name, el.inputRef)}></i>
               }
               <i className="category-item__control fa fa-trash-alt"
                 onClick={this.removeCategory(el.id)}></i>

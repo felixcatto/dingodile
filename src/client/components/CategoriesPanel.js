@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default class extends React.Component {
+export default class CategoriesPanel extends React.Component {
   state = {
     newCategoryText: '',
   }
@@ -11,10 +11,13 @@ export default class extends React.Component {
     this.setState(() => ({ newCategoryText }));
   }
 
-  onCategoryAdd = () => {
+  onCategoryAdd = (e) => {
+    if (e.type === 'keydown' && e.key !== 'Enter') return;
+
     this.props.addCategory({
       name: this.state.newCategoryText,
       parentCategoryId: null,
+      inputRef: React.createRef(),
     });
     this.setState(() => ({ newCategoryText: '' }));
   }
@@ -24,7 +27,8 @@ export default class extends React.Component {
     return (
       <div className="input-group">
         <input type="text" className="form-control" placeholder="Enter category title"
-          value={newCategoryText} onChange={this.onTextChange}/>
+          onChange={this.onTextChange} onKeyDown={this.onCategoryAdd}
+          value={newCategoryText}/>
         <div className="input-group-append">
           <button className="btn btn-light" onClick={this.onCategoryAdd}>Add</button>
         </div>
