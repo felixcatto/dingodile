@@ -28,7 +28,7 @@ const getCategoriesTree = (categories) => {
     .map(el => addChildCategories(el, 0));
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const categoriesList = Object.values(state.categories.list);
   return {
     categories: getCategoriesTree(categoriesList),

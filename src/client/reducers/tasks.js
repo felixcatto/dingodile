@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
-import { uniqueId, omit } from 'lodash';
+import { uniqueId } from 'lodash';
 import * as actions from '../actions';
 import initialState from '../lib/initialState';
 
@@ -23,11 +23,11 @@ const list = handleActions({
 }, initialState.tasks);
 
 const searchText = handleActions({
-  [actions.updateSearchText]: (state, { payload: searchText }) => searchText,
+  [actions.updateSearchText]: (state, { payload: newSearchText }) => newSearchText,
 }, '');
 
 const canShowDone = handleActions({
-  [actions.updateShowDone]: (state, { payload: canShowDone }) => canShowDone,
+  [actions.updateShowDone]: (state, { payload: canShowDoneValue }) => canShowDoneValue,
 }, false);
 
 export const tasks = combineReducers({

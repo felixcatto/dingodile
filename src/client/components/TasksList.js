@@ -2,25 +2,30 @@ import React from 'react';
 import cn from 'classnames';
 
 
+const getMatchedItems = (tasks, value) => {
+  if (!value) return tasks;
+  const regex = new RegExp(value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'), 'i');
+  return tasks
+    .filter(el => el.text.match(regex))
+    .map((el) => {
+      const { text } = el;
+      const [match] = text.match(regex);
+      const { index } = text.match(regex);
+      const before = text.slice(0, index);
+      const after = text.slice(match.length + index);
+      return {
+        ...el,
+        before,
+        match,
+        after,
+      };
+    });
+};
+
 export default class TasksList extends React.Component {
   toogleTaskStatus = id => (e) => {
     const isDone = e.target.checked;
     this.props.setTaskStatus({ id, isDone });
-  }
-
-  getMatchedItems(tasks, value) {
-    if (!value) return tasks;
-    const regex = new RegExp(value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'), 'i');
-    return tasks
-      .filter(el => el.text.match(regex))
-      .map((el) => {
-        const { text } = el;
-        const [match] = text.match(regex);
-        const { index } = text.match(regex);
-        const before = text.slice(0, index);
-        const after = text.slice(match.length + index);
-        return { ...el, before, match, after };
-      });
   }
 
   render() {
@@ -28,12 +33,12 @@ export default class TasksList extends React.Component {
     const taskStateClass = isDone => cn('task-item__text-wrap', {
       'task-item__text-wrap_done': isDone,
     });
-    let tasks = this.props.tasks;
+    let { tasks } = this.props;
     if (canShowDone) {
       tasks = tasks.filter(el => el.isDone);
     }
     if (searchText) {
-      tasks = this.getMatchedItems(tasks, searchText);
+      tasks = getMatchedItems(tasks, searchText);
     }
 
     return (

@@ -9,8 +9,8 @@ import initialState from '../lib/initialState';
 
 const list = handleActions({
   '@@INIT': state => Object.keys(state).reduce((acc, key) => update(acc, {
-      [key]: { $merge: { inputRef: React.createRef() } },
-    }), state),
+    [key]: { $merge: { inputRef: React.createRef() } },
+  }), state),
 
   [actions.addCategory]: (state, { payload }) => {
     const id = uniqueId();
@@ -46,8 +46,8 @@ const list = handleActions({
 
   [actions.toggleCategoryActiveState]: (state, { payload: id }) => {
     const newState = Object.keys(state).reduce((acc, key) => update(acc, {
-        [key]: { $merge: { isActive: false } },
-      }), state);
+      [key]: { $merge: { isActive: false } },
+    }), state);
 
     const category = state[id];
     return {
@@ -59,7 +59,8 @@ const list = handleActions({
   [actions.addChildCategory]: (state, { payload }) => {
     const id = uniqueId();
     const { parentCategoryId } = payload;
-    const parentCategory = state[parentCategoryId]
+    const parentCategory = state[parentCategoryId];
+
     return {
       ...state,
       [parentCategoryId]: {

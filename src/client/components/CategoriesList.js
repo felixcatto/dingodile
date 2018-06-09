@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 
 
-const nestedListPadding = 15
+const nestedListPadding = 15;
 const defaultLeftPadding = 5;
 
 export default class CategoriesList extends React.Component {
@@ -25,7 +25,7 @@ export default class CategoriesList extends React.Component {
     if (e.type === 'keydown' && e.key !== 'Enter') return;
 
     const { newCategoryName } = this.state;
-    this.setState(() => ({ categoryInEditModeId: ''}));
+    this.setState(() => ({ categoryInEditModeId: '' }));
     this.props.updateCategory({ newCategoryName, id });
   }
 
