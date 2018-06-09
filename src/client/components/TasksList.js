@@ -1,5 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
+import Modal from './Modal';
 
 
 const getMatchedItems = (tasks, value) => {
@@ -23,16 +24,58 @@ const getMatchedItems = (tasks, value) => {
 };
 
 export default class TasksList extends React.Component {
+  state = {
+    editedTask: {},
+  }
+
   toogleTaskStatus = id => (e) => {
     const isDone = e.target.checked;
     this.props.setTaskStatus({ id, isDone });
   }
 
+  showModal = id => () => {
+    const task = this.props.tasks.find(el => el.id === id);
+    this.setState(() => ({ editedTask: task }));
+  }
+
+  closeModal = () => this.setState(() => ({ editedTask: {} }))
+
+  onTaskSave = () => {
+    this.props.updateTask(this.state.editedTask);
+    this.setState(() => ({ editedTask: {} }));
+  }
+
+  updateEditedTaskIsDone = (e) => {
+    const isDone = e.target.checked;
+    const { editedTask } = this.state;
+    this.setState(() => ({ editedTask: { ...editedTask, isDone } }));
+  }
+
+  updateEditedTaskText = (e) => {
+    const text = e.target.value;
+    const { editedTask } = this.state;
+    this.setState(() => ({ editedTask: { ...editedTask, text } }));
+  }
+
+  updateEditedTaskCategoryId = (e) => {
+    const categoryId = e.target.value;
+    const { editedTask } = this.state;
+    this.setState(() => ({ editedTask: { ...editedTask, categoryId } }));
+  }
+
   render() {
-    const { canShowDone, searchText, activeCategoryId } = this.props;
+    const { editedTask } = this.state;
+    const {
+      canShowDone,
+      searchText,
+      activeCategoryId,
+      categories,
+    } = this.props;
+
     const taskStateClass = isDone => cn('task-item__text-wrap', {
       'task-item__text-wrap_done': isDone,
     });
+
     let { tasks } = this.props;
     if (canShowDone) {
       tasks = tasks.filter(el => el.isDone);
@@ -42,7 +85,7 @@ export default class TasksList extends React.Component {
     }
 
     return (
-      <React.Fragment>
+      <div>
 
         {tasks.length !== 0 &&
           <div className="tasks-list">
@@ -63,7 +106,7 @@ export default class TasksList extends React.Component {
                     el.text
                   }
                 </div>
-                <i className="task-item__edit-icon fa fa-edit"></i>
+                <i className="task-item__edit-icon fa fa-edit" onClick={this.showModal(el.id)}></i>
               </div>
             ))}
           </div>
@@ -77,7 +120,31 @@ export default class TasksList extends React.Component {
           </div>
         }
 
-      </React.Fragment>
+        {editedTask.id &&
+          <Modal isOpen={editedTask.id} onClose={this.closeModal}>
+            <input type="text" className="form-control mb-15" placeholder="Task text"
+              value={editedTask.text} onChange={this.updateEditedTaskText}/>
+            <label className="d-flex align-items-center mb-15">
+              <input type="checkbox" className="mr-10" placeholder="Task text"
+                checked={editedTask.isDone} onChange={this.updateEditedTaskIsDone}/>
+              <span>is Done</span>
+            </label>
+            <select className="form-control mb-35" value={editedTask.categoryId}
+              onChange={this.updateEditedTaskCategoryId}
+            >
+              {categories.map(el => (
+                <option value={el.id} key={el.id}>{el.name}</option>
+              ))}
+            </select>
+            <div className="d-flex justify-content-end">
+              <button type="button" className="btn btn-primary" onClick={this.onTaskSave}>
+                Save
+              </button>
+            </div>
+          </Modal>
+        }
+
+      </div>
     );
   }
 }

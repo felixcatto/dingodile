@@ -13,6 +13,7 @@ const mapStateToProps = (state) => {
   return {
     tasks,
     activeCategoryId,
+    categories: Object.values(state.categories.list),
     canShowDone: state.tasks.canShowDone,
     searchText: state.tasks.searchText,
   };

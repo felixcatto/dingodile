@@ -13,6 +13,7 @@ const list = handleActions({
       [id]: { id, ...task },
     };
   },
+
   [actions.setTaskStatus]: (state, { payload }) => {
     const { id, isDone } = payload;
     return {
@@ -20,6 +21,11 @@ const list = handleActions({
       [id]: { ...state[id], isDone },
     };
   },
+
+  [actions.updateTask]: (state, { payload: task }) => ({
+    ...state,
+    [task.id]: task,
+  }),
 }, initialState.tasks);
 
 const searchText = handleActions({

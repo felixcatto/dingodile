@@ -9,7 +9,7 @@ export default function App() {
   return (
     <div className="container pt-30">
 
-      <div className="row row_gap-30 mb-30">
+      <div className="row mb-30">
         <div className="col-4">
           <CategoriesPanel/>
         </div>

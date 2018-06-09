@@ -75,6 +75,8 @@ const dev = gulp.series(
 const prod = gulp.series(
   clean,
   copyLayout,
+  transpileScss,
+  copyAssets,
   bundleClientJs,
 );
 
