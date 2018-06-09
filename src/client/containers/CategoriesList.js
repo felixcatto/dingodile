@@ -4,21 +4,28 @@ import * as actionCreators from '../actions';
 
 
 const getCategoriesTree = (categories) => {
-  const addChildCategories = (currentCategory) => {
+  const addChildCategories = (currentCategory, nestedLvl) => {
     const childCategories = categories
       .filter(category => category.parentCategoryId === currentCategory.id);
     if (childCategories.length === 0) {
-      return { ...currentCategory, childCategories };
+      return {
+        ...currentCategory,
+        childCategories,
+        nestedLvl,
+        hasChildren: false,
+      };
     }
     return {
       ...currentCategory,
-      childCategories: childCategories.map(el => addChildCategories(el)),
+      nestedLvl,
+      childCategories: childCategories.map(el => addChildCategories(el, nestedLvl + 1)),
+      hasChildren: true,
     };
   };
 
   return categories
     .filter(category => !category.parentCategoryId)
-    .map(el => addChildCategories(el));
+    .map(el => addChildCategories(el, 0));
 };
 
 const mapStateToProps = state => {

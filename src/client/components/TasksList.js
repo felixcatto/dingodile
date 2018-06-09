@@ -24,7 +24,7 @@ export default class TasksList extends React.Component {
   }
 
   render() {
-    const { canShowDone, searchText } = this.props;
+    const { canShowDone, searchText, activeCategoryId } = this.props;
     const taskStateClass = isDone => cn('task-item__text-wrap', {
       'task-item__text-wrap_done': isDone,
     });
@@ -37,29 +37,42 @@ export default class TasksList extends React.Component {
     }
 
     return (
-      tasks.length !== 0 &&
-        <div className="tasks-list">
-          {tasks.map(el => (
-            <div className="task-item" key={el.id}>
-              <label className="mb-0 px-5">
-                <input type="checkbox" className="d-block" checked={el.isDone}
-                  onChange={this.toogleTaskStatus(el.id)}/>
-              </label>
-              <div className={taskStateClass(el.isDone)}>
-                {el.match ?
-                  <React.Fragment>
-                    <span>{el.before}</span
-                    ><span className="task-item__matched-text">{el.match}</span
-                    ><span>{el.after}</span>
-                  </React.Fragment>
-                :
-                  el.text
-                }
+      <React.Fragment>
+
+        {tasks.length !== 0 &&
+          <div className="tasks-list">
+            {tasks.map(el => (
+              <div className="task-item" key={el.id}>
+                <label className="mb-0 px-5">
+                  <input type="checkbox" className="d-block" checked={el.isDone}
+                    onChange={this.toogleTaskStatus(el.id)}/>
+                </label>
+                <div className={taskStateClass(el.isDone)}>
+                  {el.match ?
+                    <React.Fragment>
+                      <span>{el.before}</span
+                      ><span className="task-item__matched-text">{el.match}</span
+                      ><span>{el.after}</span>
+                    </React.Fragment>
+                  :
+                    el.text
+                  }
+                </div>
+                <i className="task-item__edit-icon fa fa-edit"></i>
               </div>
-              <i className="task-item__edit-icon fa fa-edit"></i>
+            ))}
+          </div>
+        }
+
+        {!activeCategoryId &&
+          <div className="tasks-list">
+            <div className="task-item">
+              <div className="task-item__text-wrap">Please Select a Category</div>
             </div>
-          ))}
-        </div>
+          </div>
+        }
+
+      </React.Fragment>
     );
   }
 }

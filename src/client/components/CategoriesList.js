@@ -2,6 +2,9 @@ import React from 'react';
 import cn from 'classnames';
 
 
+const nestedListPadding = 15
+const defaultLeftPadding = 5;
+
 export default class CategoriesList extends React.Component {
   state = {
     newCategoryName: '',
@@ -40,38 +43,45 @@ export default class CategoriesList extends React.Component {
 
   toggleCategoryOpenState = id => () => this.props.toggleCategoryOpenState(id)
 
+  toggleCategoryActiveState = id => () => this.props.toggleCategoryActiveState(id)
+
   renderCategory = (el) => {
     const { newCategoryName, categoryInEditModeId } = this.state;
-    const inputClass = id => cn('category-item__input', {
-      'd-none': id !== categoryInEditModeId,
+    const itemStyle = { paddingLeft: `${(el.nestedLvl * nestedListPadding) + defaultLeftPadding}px` };
+
+    const inputClass = cn('category-item__input', {
+      'd-none': el.id !== categoryInEditModeId,
     });
-    const textClass = id => cn('category-item__text', {
-      'd-none': id === categoryInEditModeId,
+    const textClass = cn('category-item__text', {
+      'd-none': el.id === categoryInEditModeId,
     });
-    const expandIconClass = (isOpened, hasChildren) => cn('category-item__expand-icon fa', {
-      'd-none': !hasChildren,
-      'fa-chevron-right': !isOpened,
-      'fa-chevron-down': isOpened,
+    const expandIconClass = cn('category-item__expand-icon fa', {
+      'd-none': !el.hasChildren,
+      'fa-chevron-right': !el.isOpened,
+      'fa-chevron-down': el.isOpened,
     });
-    const categoryListClass = isOpened => cn('category-list', {
-      'd-none': !isOpened,
+    const categoryListClass = cn('category-list', {
+      'd-none': !el.isOpened,
+    });
+    const itemInnerClass = cn('category-item__inner', {
+      'category-item__inner_active': el.isActive,
     });
 
     return (
       <li className="category-item" key={el.id}>
 
-        <div className="category-item__inner">
+        <div className={itemInnerClass} style={itemStyle}>
           <div className="d-flex align-items-center">
             <div className="category-item__expand-icon-wrap">
-              <i className={expandIconClass(el.isOpened, el.hasChildren)}
+              <i className={expandIconClass}
                 onClick={this.toggleCategoryOpenState(el.id)}></i>
             </div>
-            <input className={inputClass(el.id)} placeholder="Edit me pls"
+            <input className={inputClass} placeholder="Edit me pls"
               value={newCategoryName} ref={el.inputRef}
               onChange={this.updateCategoryTmpName}
               onKeyDown={this.updateCategoryName(el.id)}/>
-            <div className={textClass(el.id)}
-              onClick={this.editCategoryName(el.id, el.name, el.inputRef)}
+            <div className={textClass}
+              onClick={this.toggleCategoryActiveState(el.id)}
             >
               {el.name}
             </div>
@@ -91,7 +101,7 @@ export default class CategoriesList extends React.Component {
           </div>
         </div>
 
-        <ul className={categoryListClass(el.isOpened)}>
+        <ul className={categoryListClass}>
           {el.childCategories.map(this.renderCategory)}
         </ul>
 
