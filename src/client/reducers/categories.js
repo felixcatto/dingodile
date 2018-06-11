@@ -18,7 +18,6 @@ const list = handleActions({
       ...state,
       [id]: {
         id,
-        isActive: false,
         isOpened: false,
         ...payload,
       },
@@ -44,18 +43,6 @@ const list = handleActions({
     };
   },
 
-  [actions.toggleCategoryActiveState]: (state, { payload: id }) => {
-    const newState = Object.keys(state).reduce((acc, key) => update(acc, {
-      [key]: { $merge: { isActive: false } },
-    }), state);
-
-    const category = state[id];
-    return {
-      ...newState,
-      [id]: { ...category, isActive: !category.isActive },
-    };
-  },
-
   [actions.addChildCategory]: (state, { payload }) => {
     const id = uniqueId();
     const { parentCategoryId } = payload;
@@ -70,7 +57,6 @@ const list = handleActions({
       [id]: {
         id,
         name: `New Category #${id}`,
-        isActive: false,
         isOpened: false,
         ...payload,
       },

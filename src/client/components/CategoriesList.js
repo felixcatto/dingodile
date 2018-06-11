@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import cn from 'classnames';
+import routes from '../routes';
 
 
 const nestedListPadding = 15;
@@ -46,14 +48,18 @@ export default class CategoriesList extends React.Component {
   toggleCategoryActiveState = id => () => this.props.toggleCategoryActiveState(id)
 
   renderCategory = (el) => {
+    const { location } = this.props;
     const { newCategoryName, categoryInEditModeId } = this.state;
     const itemStyle = { paddingLeft: `${(el.nestedLvl * nestedListPadding) + defaultLeftPadding}px` };
+    const categoryUrl = routes.categoryUrl(el.id);
+    const isCategoryActive = location.pathname === categoryUrl;
 
     const inputClass = cn('category-item__input', {
       'd-none': el.id !== categoryInEditModeId,
     });
     const textClass = cn('category-item__text', {
       'd-none': el.id === categoryInEditModeId,
+      'category-item__text_active': isCategoryActive,
     });
     const expandIconClass = cn('category-item__expand-icon fa', {
       'd-none': !el.hasChildren,
@@ -63,14 +69,11 @@ export default class CategoriesList extends React.Component {
     const categoryListClass = cn('category-list', {
       'd-none': !el.isOpened,
     });
-    const itemInnerClass = cn('category-item__inner', {
-      'category-item__inner_active': el.isActive,
-    });
 
     return (
       <li className="category-item" key={el.id}>
 
-        <div className={itemInnerClass} style={itemStyle}>
+        <div className="category-item__inner" style={itemStyle}>
           <div className="d-flex align-items-center">
             <div className="category-item__expand-icon-wrap">
               <i className={expandIconClass}
@@ -80,11 +83,9 @@ export default class CategoriesList extends React.Component {
               value={newCategoryName} ref={el.inputRef}
               onChange={this.updateCategoryTmpName}
               onKeyDown={this.updateCategoryName(el.id)}/>
-            <div className={textClass}
-              onClick={this.toggleCategoryActiveState(el.id)}
-            >
+            <Link to={isCategoryActive ? '/' : categoryUrl} className={textClass}>
               {el.name}
-            </div>
+            </Link>
           </div>
           <div className="category-item__controls">
             {el.id === categoryInEditModeId ?

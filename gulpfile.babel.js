@@ -10,6 +10,7 @@ import webpackStream from 'webpack-stream';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackConfig from './webpack.config.js';
 import Browser from 'browser-sync';
+import historyApiFallback from 'connect-history-api-fallback';
 
 
 const devServer = Browser.create();
@@ -26,6 +27,7 @@ const startDevServer = (done) => {
       webpackDevMiddleware(bundler, {
         publicPath: webpackConfig.output.publicPath,
       }),
+      historyApiFallback(),
     ],
   });
   done();

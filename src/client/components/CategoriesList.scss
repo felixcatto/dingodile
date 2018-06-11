@@ -19,9 +19,6 @@
     padding-left: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
-    &_active {
-      color: steelblue;
-    }
   }
   &__input {
     height: 24px;
@@ -38,8 +35,19 @@
     font-size: 12px;
   }
   &__text {
+    color: #333;
     cursor: pointer;
     user-select: none;
+    &:hover {
+      color: #333;
+      text-decoration: none;
+    }
+    &_active {
+      color: steelblue;
+    }
+    &_active:hover {
+      color: steelblue;
+    }
   }
   &__controls {
     padding-right: 5px;

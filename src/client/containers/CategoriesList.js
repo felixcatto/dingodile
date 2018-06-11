@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import CategoriesList from '../components/CategoriesList';
 import * as actionCreators from '../actions';
 
@@ -35,4 +36,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, actionCreators)(CategoriesList);
+export default withRouter(connect(mapStateToProps, actionCreators)(CategoriesList));
