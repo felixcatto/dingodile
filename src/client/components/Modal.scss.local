@@ -1,0 +1,40 @@
+.modal {
+  position: fixed;
+  z-index: 1000;
+  display: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,0.5);
+  &_open {
+    display: block;
+  }
+}
+
+.dialog {
+  position: relative;
+  width: 600px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 15px;
+  padding-top: 45px;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  color: #333;
+}
+
+.dialogClose {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 5px 10px;
+  border: none;
+  outline: none;
+  background: none;
+  color: #333;
+  cursor: pointer;
+}

@@ -5,21 +5,18 @@ export default {
       name: 'Category 100',
       parentCategoryId: null,
       isOpened: false,
-      hasChildren: false,
     },
     101: {
       id: '101',
       name: 'Category 101',
       parentCategoryId: null,
       isOpened: false,
-      hasChildren: true,
     },
     102: {
       id: '102',
       name: 'Category 102',
       parentCategoryId: '101',
       isOpened: false,
-      hasChildren: false,
     },
   },
   tasks: {

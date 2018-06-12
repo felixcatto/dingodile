@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import routes from '../routes';
+import ss from './CategoriesList.scss.local';
 
 
 const nestedListPadding = 15;
@@ -54,28 +55,28 @@ export default class CategoriesList extends React.Component {
     const categoryUrl = routes.categoryUrl(el.id);
     const isCategoryActive = location.pathname === categoryUrl;
 
-    const inputClass = cn('category-item__input', {
+    const inputClass = cn(ss.input, {
       'd-none': el.id !== categoryInEditModeId,
     });
-    const textClass = cn('category-item__text', {
+    const textClass = cn(ss.text, {
       'd-none': el.id === categoryInEditModeId,
-      'category-item__text_active': isCategoryActive,
+      [ss.text_active]: isCategoryActive,
     });
-    const expandIconClass = cn('category-item__expand-icon fa', {
+    const expandIconClass = cn(ss.expandIcon, 'fa', {
       'd-none': !el.hasChildren,
       'fa-chevron-right': !el.isOpened,
       'fa-chevron-down': el.isOpened,
     });
-    const categoryListClass = cn('category-list', {
+    const categoryListClass = cn(ss.list, {
       'd-none': !el.isOpened,
     });
 
     return (
-      <li className="category-item" key={el.id}>
+      <li key={el.id}>
 
-        <div className="category-item__inner" style={itemStyle}>
+        <div className={ss.itemInner} style={itemStyle}>
           <div className="d-flex align-items-center">
-            <div className="category-item__expand-icon-wrap">
+            <div className={ss.expandIconWrap}>
               <i className={expandIconClass}
                 onClick={this.toggleCategoryOpenState(el.id)}></i>
             </div>
@@ -87,17 +88,17 @@ export default class CategoriesList extends React.Component {
               {el.name}
             </Link>
           </div>
-          <div className="category-item__controls">
+          <div className={ss.controls}>
             {el.id === categoryInEditModeId ?
-              <i className="category-item__control fa fa-save"
+              <i className={cn(ss.control, 'fa', 'fa-save')}
                 onClick={this.updateCategoryName(el.id)}></i>
             :
-              <i className="category-item__control fa fa-edit"
+              <i className={cn(ss.control, 'fa', 'fa-edit')}
                 onClick={this.editCategoryName(el.id, el.name, el.inputRef)}></i>
             }
-            <i className="category-item__control fa fa-trash-alt"
+            <i className={cn(ss.control, 'fa', 'fa-trash-alt')}
               onClick={this.removeCategory(el.id)}></i>
-            <i className="category-item__control fa fa-plus"
+            <i className={cn(ss.control, 'fa', 'fa-plus')}
               onClick={this.addChildCategory(el.id)}></i>
           </div>
         </div>
@@ -112,7 +113,7 @@ export default class CategoriesList extends React.Component {
 
   render() {
     return (
-      <ul className="category-list category-list_root">
+      <ul className={cn(ss.list, ss.list_root)}>
         {this.props.categories.map(this.renderCategory)}
       </ul>
     );

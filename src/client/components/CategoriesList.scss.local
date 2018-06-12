@@ -1,0 +1,66 @@
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  &_root {
+    border-radius: 4px;
+    background: #fff;
+    color: #333;
+    box-shadow: 0 2px 15px 2px rgba(0,0,0,0.15);
+  }
+}
+
+.itemInner {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.input {
+  height: 24px;
+  border: none;
+  outline: none;
+}
+
+.expandIconWrap {
+  width: 20px;
+}
+
+.expandIcon {
+  padding: 4px;
+  color: steelblue;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.text {
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    color: #333;
+    text-decoration: none;
+  }
+  &_active {
+    color: steelblue;
+  }
+  &_active:hover {
+    color: steelblue;
+  }
+}
+
+.controls {
+  padding-right: 5px;
+}
+
+.control {
+  margin-right: 2px;
+  padding: 2px;
+  color: steelblue;
+  cursor: pointer;
+  &:last-child {
+    margin-right: 0;
+  }
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import cn from 'classnames';
+import ss from './Modal.scss.local';
 
 
 export default class Modal extends React.Component {
@@ -21,17 +22,17 @@ export default class Modal extends React.Component {
 
   renderModal() {
     const { isOpen, onClose } = this.props;
-    const imodalClass = cn('imodal animation-appearance', {
-      'imodal_open': isOpen,
+    const imodalClass = cn(ss.modal, 'animation-appearance', {
+      [ss.modal_open]: isOpen,
     });
 
     return (
       <div className={imodalClass} tabIndex="-1" onKeyDown={this.onEscape} ref={this.modalRef}>
-        <div className="imodal__dialog">
-          <button type="button" className="imodal__dialog-close" onClick={onClose}>
+        <div className={ss.dialog}>
+          <button type="button" className={ss.dialogClose} onClick={onClose}>
             <i className="fa fa-times"></i>
           </button>
-          <div className="modal__body">
+          <div className={ss.body}>
             {this.props.children}
           </div>
         </div>

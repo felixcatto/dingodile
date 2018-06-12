@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import './App.scss';
 import CategoriesPanel from '../containers/CategoriesPanel';
 import CategoriesList from '../containers/CategoriesList';
 import TasksPanel from '../containers/TasksPanel';

@@ -1,6 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
 import Modal from './Modal';
+import ss from './TasksList.scss.local';
 
 
 const getMatchedItems = (tasks, value) => {
@@ -72,8 +73,8 @@ export default class TasksList extends React.Component {
       categories,
     } = this.props;
 
-    const taskStateClass = isDone => cn('task-item__text-wrap', {
-      'task-item__text-wrap_done': isDone,
+    const taskStateClass = isDone => cn(ss.textWrap, {
+      [ss.textWrap_done]: isDone,
     });
 
     let { tasks } = this.props;
@@ -88,9 +89,9 @@ export default class TasksList extends React.Component {
       <div>
 
         {tasks.length !== 0 &&
-          <div className="tasks-list">
+          <div className={ss.list}>
             {tasks.map(el => (
-              <div className="task-item" key={el.id}>
+              <div className={ss.item} key={el.id}>
                 <label className="mb-0 px-5">
                   <input type="checkbox" className="d-block" checked={el.isDone}
                     onChange={this.toogleTaskStatus(el.id)}/>
@@ -99,23 +100,23 @@ export default class TasksList extends React.Component {
                   {el.match ?
                     <React.Fragment>
                       <span>{el.before}</span
-                      ><span className="task-item__matched-text">{el.match}</span
+                      ><span className={ss.matchedText}>{el.match}</span
                       ><span>{el.after}</span>
                     </React.Fragment>
                   :
                     el.text
                   }
                 </div>
-                <i className="task-item__edit-icon fa fa-edit" onClick={this.showModal(el.id)}></i>
+                <i className={cn(ss.editIcon, 'fa', 'fa-edit')} onClick={this.showModal(el.id)}></i>
               </div>
             ))}
           </div>
         }
 
         {!activeCategoryId &&
-          <div className="tasks-list">
-            <div className="task-item">
-              <div className="task-item__text-wrap">Please Select a Category</div>
+          <div className={ss.list}>
+            <div className={ss.item}>
+              <div className={ss.textWrap}>Please Select a Category</div>
             </div>
           </div>
         }
