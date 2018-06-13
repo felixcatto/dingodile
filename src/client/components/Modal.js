@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import cn from 'classnames';
 import ss from './Modal.scss.local';
@@ -47,3 +48,10 @@ export default class Modal extends React.Component {
     );
   }
 }
+
+
+Modal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  children: PropTypes.array,
+};

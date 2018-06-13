@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 import { uniqueId, omit } from 'lodash';
 import update from 'immutability-helper';
-import * as actions from '../actions';
+import * as actions from '../actions/categories';
 import initialState from '../lib/initialState';
 
 

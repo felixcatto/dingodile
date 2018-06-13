@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import CategoriesList from '../components/CategoriesList';
-import * as actionCreators from '../actions';
+import * as actionCreators from '../actions/categories';
 
 
 const getCategoriesTree = (categories) => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import cn from 'classnames';
 import Modal from './Modal';
 import ss from './TasksList.scss.local';
@@ -122,7 +123,7 @@ export default class TasksList extends React.Component {
         }
 
         {editedTask.id &&
-          <Modal isOpen={editedTask.id} onClose={this.closeModal}>
+          <Modal isOpen={true} onClose={this.closeModal}>
             <input type="text" className="form-control mb-15" placeholder="Task text"
               value={editedTask.text} onChange={this.updateEditedTaskText}/>
             <label className="d-flex align-items-center mb-15">
@@ -149,3 +150,22 @@ export default class TasksList extends React.Component {
     );
   }
 }
+
+
+TasksList.propTypes = {
+  setTaskStatus: PropTypes.func.isRequired,
+  updateTask: PropTypes.func.isRequired,
+  canShowDone: PropTypes.bool.isRequired,
+  searchText: PropTypes.string.isRequired,
+  activeCategoryId: PropTypes.string.isRequired,
+  tasks: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.any,
+    categoryId: PropTypes.any,
+    isDone: PropTypes.any,
+    text: PropTypes.any,
+  })).isRequired,
+  categories: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.any,
+    name: PropTypes.any,
+  })).isRequired,
+};

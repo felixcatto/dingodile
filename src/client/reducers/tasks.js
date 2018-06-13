@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 import { uniqueId } from 'lodash';
-import * as actions from '../actions';
+import * as actions from '../actions/tasks';
 import initialState from '../lib/initialState';
 
 

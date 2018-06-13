@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import TasksPanel from '../components/TasksPanel';
-import * as actionCreators from '../actions';
+import * as actionCreators from '../actions/tasks';
 import routes from '../routes';
 
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import routes from '../routes';
@@ -45,8 +46,6 @@ export default class CategoriesList extends React.Component {
   }
 
   toggleCategoryOpenState = id => () => this.props.toggleCategoryOpenState(id)
-
-  toggleCategoryActiveState = id => () => this.props.toggleCategoryActiveState(id)
 
   renderCategory = (el) => {
     const { location } = this.props;
@@ -119,3 +118,22 @@ export default class CategoriesList extends React.Component {
     );
   }
 }
+
+
+CategoriesList.propTypes = {
+  removeCategory: PropTypes.func.isRequired,
+  updateCategory: PropTypes.func.isRequired,
+  addChildCategory: PropTypes.func.isRequired,
+  toggleCategoryOpenState: PropTypes.func.isRequired,
+  location: PropTypes.object.isRequired,
+  categories: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.any,
+    parentCategoryId: PropTypes.any,
+    childCategories: PropTypes.any,
+    hasChildren: PropTypes.any,
+    inputRef: PropTypes.any,
+    isOpened: PropTypes.any,
+    name: PropTypes.any,
+    nestedLvl: PropTypes.any,
+  })).isRequired,
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
 export default class CategoriesPanel extends React.Component {
@@ -36,3 +37,8 @@ export default class CategoriesPanel extends React.Component {
     );
   }
 }
+
+
+CategoriesPanel.propTypes = {
+  addCategory: PropTypes.func.isRequired,
+};

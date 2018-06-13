@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import CategoriesPanel from '../components/CategoriesPanel';
-import * as actionCreators from '../actions';
+import * as actionCreators from '../actions/categories';
 
 
 const mapStateToProps = () => ({});

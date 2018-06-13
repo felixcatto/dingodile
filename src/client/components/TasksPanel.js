@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import cn from 'classnames';
 import ss from './TasksPanel.scss.local';
 
@@ -64,3 +65,12 @@ export default class TasksPanel extends React.Component {
     );
   }
 }
+
+
+TasksPanel.propTypes = {
+  addTask: PropTypes.func.isRequired,
+  updateShowDone: PropTypes.func.isRequired,
+  updateSearchText: PropTypes.func.isRequired,
+  activeCategoryId: PropTypes.string.isRequired,
+  searchText: PropTypes.string.isRequired,
+};
