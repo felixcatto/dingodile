@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import routes from '../routes';
-import ss from './CategoriesList.scss.local';
+import ss from './CategoriesList.local.scss';
 
 
 const nestedListPadding = 15;

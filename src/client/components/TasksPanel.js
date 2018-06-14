@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import ss from './TasksPanel.scss.local';
+import ss from './TasksPanel.local.scss';
 
 
 export default class TasksPanel extends React.Component {

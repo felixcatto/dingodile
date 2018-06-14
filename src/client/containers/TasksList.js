@@ -6,7 +6,7 @@ import routes from '../routes';
 
 
 const mapStateToProps = (state, ownProps) => {
-  const activeCategoryId = routes.getCategory(ownProps.location.pathname);
+  const activeCategoryId = routes.getCategoryId(ownProps.location.pathname);
   const tasks = Object.values(state.tasks.list)
     .filter(el => el.categoryId === activeCategoryId);
 

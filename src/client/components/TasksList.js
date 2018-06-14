@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import Modal from './Modal';
-import ss from './TasksList.scss.local';
+import ss from './TasksList.local.scss';
 
 
 const getMatchedItems = (tasks, value) => {

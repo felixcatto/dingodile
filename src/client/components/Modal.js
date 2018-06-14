@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import cn from 'classnames';
-import ss from './Modal.scss.local';
+import ss from './Modal.local.scss';
 
 
 export default class Modal extends React.Component {

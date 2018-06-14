@@ -7,7 +7,7 @@ import routes from '../routes';
 
 const mapStateToProps = (state, ownProps) => ({
   searchText: state.tasks.searchText,
-  activeCategoryId: routes.getCategory(ownProps.location.pathname),
+  activeCategoryId: routes.getCategoryId(ownProps.location.pathname),
 });
 
 export default withRouter(connect(mapStateToProps, actionCreators)(TasksPanel));

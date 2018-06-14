@@ -34,18 +34,18 @@ module.exports = {
         },
       },
       {
-        test: /\.(css|scss)$/,
+        test: /local\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
+          { loader: 'css-loader', options: { modules: 1 } },
           'sass-loader',
         ],
       },
       {
-        test: /\.scss.local$/,
+        test: /(?<!local)\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          { loader: 'css-loader', options: { modules: 1 } },
+          'css-loader',
           'sass-loader',
         ],
       },
