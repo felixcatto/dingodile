@@ -4,8 +4,28 @@ import { handleActions } from 'redux-actions';
 import { uniqueId, omit } from 'lodash';
 import update from 'immutability-helper';
 import * as actions from '../actions/categories';
-import initialState from '../lib/initialState';
 
+
+const initialState = {
+  100: {
+    id: '100',
+    name: 'Category 100',
+    parentCategoryId: null,
+    isOpened: false,
+  },
+  101: {
+    id: '101',
+    name: 'Category 101',
+    parentCategoryId: null,
+    isOpened: false,
+  },
+  102: {
+    id: '102',
+    name: 'Category 102',
+    parentCategoryId: '101',
+    isOpened: false,
+  },
+};
 
 const list = handleActions({
   '@@INIT': state => Object.keys(state).reduce((acc, key) => update(acc, {
@@ -62,7 +82,7 @@ const list = handleActions({
       },
     };
   },
-}, initialState.categories);
+}, initialState);
 
 export const categories = combineReducers({
   list,
