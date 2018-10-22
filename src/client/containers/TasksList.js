@@ -2,11 +2,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import TasksList from '../components/TasksList';
 import * as actionCreators from '../actions/tasks';
-import routes from '../routes';
 
 
 const mapStateToProps = (state, ownProps) => {
-  const activeCategoryId = routes.getCategoryId(ownProps.location.pathname);
+  const activeCategoryId = ownProps.match.params.id || null;
   const tasks = Object.values(state.tasks.list)
     .filter(el => el.categoryId === activeCategoryId);
 

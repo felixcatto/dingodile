@@ -83,7 +83,7 @@ export default class CategoriesList extends React.Component {
               value={newCategoryName} ref={el.inputRef}
               onChange={this.updateCategoryTmpName}
               onKeyDown={this.updateCategoryName(el.id)}/>
-            <Link to={isCategoryActive ? '/' : categoryUrl} className={textClass}>
+            <Link to={isCategoryActive ? routes.homePath : categoryUrl} className={textClass}>
               {el.name}
             </Link>
           </div>

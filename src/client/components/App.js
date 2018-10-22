@@ -1,10 +1,11 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.scss';
 import CategoriesPanel from '../containers/CategoriesPanel';
 import CategoriesList from '../containers/CategoriesList';
 import TasksPanel from '../containers/TasksPanel';
 import TasksList from '../containers/TasksList';
+import routes from '../routes';
 
 
 export default function App() {
@@ -17,7 +18,10 @@ export default function App() {
             <CategoriesPanel/>
           </div>
           <div className="col-8">
-            <TasksPanel/>
+            <Switch>
+              <Route exact path={routes.homePath} component={TasksPanel}/>
+              <Route path={routes.categoryPath} component={TasksPanel} />
+            </Switch>
           </div>
         </div>
 
@@ -26,7 +30,10 @@ export default function App() {
             <CategoriesList/>
           </div>
           <div className="col-8">
-            <TasksList/>
+            <Switch>
+              <Route exact path={routes.homePath} component={TasksList}/>
+              <Route path={routes.categoryPath} component={TasksList} />
+            </Switch>
           </div>
         </div>
 

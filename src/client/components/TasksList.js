@@ -157,7 +157,7 @@ TasksList.propTypes = {
   updateTask: PropTypes.func.isRequired,
   canShowDone: PropTypes.bool.isRequired,
   searchText: PropTypes.string.isRequired,
-  activeCategoryId: PropTypes.string.isRequired,
+  activeCategoryId: PropTypes.string,
   tasks: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.any,
     categoryId: PropTypes.any,

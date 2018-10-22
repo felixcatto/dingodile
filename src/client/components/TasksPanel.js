@@ -71,6 +71,6 @@ TasksPanel.propTypes = {
   addTask: PropTypes.func.isRequired,
   updateShowDone: PropTypes.func.isRequired,
   updateSearchText: PropTypes.func.isRequired,
-  activeCategoryId: PropTypes.string.isRequired,
+  activeCategoryId: PropTypes.string,
   searchText: PropTypes.string.isRequired,
 };
