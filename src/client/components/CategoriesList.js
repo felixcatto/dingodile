@@ -10,6 +10,8 @@ const nestedListPadding = 15;
 const defaultLeftPadding = 5;
 
 export default class CategoriesList extends React.Component {
+  inputRef = React.createRef()
+
   state = {
     newCategoryName: '',
     categoryInEditModeId: '',
@@ -17,12 +19,11 @@ export default class CategoriesList extends React.Component {
 
   removeCategory = id => () => this.props.removeCategory(id)
 
-  editCategoryName = (id, name, inputRef) => () => {
-    this.setState(() => ({
+  editCategoryName = (id, name) => () => {
+    this.setState({
       newCategoryName: name,
       categoryInEditModeId: id,
-    }));
-    setTimeout(() => inputRef.current.focus(), 50);
+    }, () => this.inputRef.current.focus());
   }
 
   updateCategoryName = id => (e) => {
@@ -39,13 +40,14 @@ export default class CategoriesList extends React.Component {
   }
 
   addChildCategory = id => () => {
-    this.props.addChildCategory({
-      parentCategoryId: id,
-      inputRef: React.createRef(),
-    });
+    this.props.addChildCategory({ parentCategoryId: id });
   }
 
   toggleCategoryOpenState = id => () => this.props.toggleCategoryOpenState(id)
+
+  getInputRef = categoryId => (categoryId === this.state.categoryInEditModeId
+    ? this.inputRef
+    : null)
 
   renderCategory = (el) => {
     const { location } = this.props;
@@ -79,10 +81,14 @@ export default class CategoriesList extends React.Component {
               <i className={expandIconClass}
                 onClick={this.toggleCategoryOpenState(el.id)}></i>
             </div>
-            <input className={inputClass} placeholder="Edit me pls"
-              value={newCategoryName} ref={el.inputRef}
+            <input
+              className={inputClass}
+              placeholder="Edit me pls"
+              value={newCategoryName}
+              ref={this.getInputRef(el.id)}
               onChange={this.updateCategoryTmpName}
-              onKeyDown={this.updateCategoryName(el.id)}/>
+              onKeyDown={this.updateCategoryName(el.id)}
+            />
             <Link to={isCategoryActive ? routes.homePath : categoryUrl} className={textClass}>
               {el.name}
             </Link>
@@ -93,7 +99,7 @@ export default class CategoriesList extends React.Component {
                 onClick={this.updateCategoryName(el.id)}></i>
             :
               <i className={cn(ss.control, 'fa', 'fa-edit')}
-                onClick={this.editCategoryName(el.id, el.name, el.inputRef)}></i>
+                onClick={this.editCategoryName(el.id, el.name)}></i>
             }
             <i className={cn(ss.control, 'fa', 'fa-trash-alt')}
               onClick={this.removeCategory(el.id)}></i>
@@ -131,7 +137,6 @@ CategoriesList.propTypes = {
     parentCategoryId: PropTypes.any,
     childCategories: PropTypes.any,
     hasChildren: PropTypes.any,
-    inputRef: PropTypes.any,
     isOpened: PropTypes.any,
     name: PropTypes.any,
     nestedLvl: PropTypes.any,

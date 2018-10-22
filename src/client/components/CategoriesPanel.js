@@ -18,7 +18,6 @@ export default class CategoriesPanel extends React.Component {
     this.props.addCategory({
       name: this.state.newCategoryText,
       parentCategoryId: null,
-      inputRef: React.createRef(),
     });
     this.setState(() => ({ newCategoryText: '' }));
   }
