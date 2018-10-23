@@ -1,10 +1,10 @@
-import gulp from 'gulp';
-import del from 'del';
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackConfig from './webpack.config.js';
-import Browser from 'browser-sync';
-import historyApiFallback from 'connect-history-api-fallback';
+const gulp = require('gulp');
+const del = require('del');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackConfig = require('./webpack.config.js');
+const Browser = require('browser-sync');
+const historyApiFallback = require('connect-history-api-fallback');
 
 
 const devServer = Browser.create();
@@ -61,4 +61,4 @@ const prod = gulp.series(
 );
 
 
-export { dev, prod };
+module.exports = { dev, prod };
