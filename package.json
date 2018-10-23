@@ -37,7 +37,6 @@
   "dependencies": {
     "bootstrap": "^4.1.1",
     "classnames": "^2.2.5",
-    "immutability-helper": "^2.7.0",
     "lodash": "^4.17.10",
     "prop-types": "^15.6.1",
     "react": "^16.4.0",

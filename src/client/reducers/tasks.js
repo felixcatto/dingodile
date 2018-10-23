@@ -26,7 +26,7 @@ const initialState = {
 };
 
 const list = handleActions({
-  [actions.addTask]: (state, { payload: task }) => {
+  [actions.addTaskSuccess]: (state, { payload: task }) => {
     const id = uniqueId();
     return {
       ...state,
@@ -48,6 +48,12 @@ const list = handleActions({
   }),
 }, initialState);
 
+const taskAddingState = handleActions({
+  [actions.addTaskRequest]: () => 'requested',
+  [actions.addTaskSuccess]: () => 'succeed',
+  [actions.addTaskFailure]: () => 'failed',
+}, 'none');
+
 const searchText = handleActions({
   [actions.updateSearchText]: (state, { payload: newSearchText }) => newSearchText,
 }, '');
@@ -58,6 +64,7 @@ const canShowDone = handleActions({
 
 export const tasks = combineReducers({
   list,
+  taskAddingState,
   searchText,
   canShowDone,
 });

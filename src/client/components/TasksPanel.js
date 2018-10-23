@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import { isPending } from '../lib/utils';
 import ss from './TasksPanel.local.scss';
 
 
@@ -37,8 +38,8 @@ export default class TasksPanel extends React.Component {
   }
 
   render() {
-    const { searchText, activeCategoryId } = this.props;
-    const canAddTask = Boolean(activeCategoryId);
+    const { searchText, activeCategoryId, taskAddingState } = this.props;
+    const canAddTask = Boolean(activeCategoryId) && !isPending(taskAddingState);
     return (
       <div className={ss.panel}>
         <label className={cn(ss.item, ss.item_noStretch, 'ilabel', 'mb-0')}>
@@ -55,8 +56,15 @@ export default class TasksPanel extends React.Component {
               onChange={this.changeNewTaskText} value={this.state.newTaskText}
               onKeyDown={this.addNewTask} disabled={!canAddTask}/>
             <div className="input-group-append">
-              <button className="btn btn-light" onClick={this.addNewTask} disabled={!canAddTask}>
-                Add
+              <button
+                className={cn(ss.addButton, 'btn', 'btn-light')}
+                onClick={this.addNewTask}
+                disabled={!canAddTask}
+              >
+                <span>Add</span>
+                {isPending(taskAddingState) &&
+                  <i className={cn(ss.spinnerIcon, 'fa', 'fa-spinner', 'fa-spin', 'ml-10')}></i>
+                }
               </button>
             </div>
           </div>
@@ -73,4 +81,5 @@ TasksPanel.propTypes = {
   updateSearchText: PropTypes.func.isRequired,
   activeCategoryId: PropTypes.string,
   searchText: PropTypes.string.isRequired,
+  taskAddingState: PropTypes.string.isRequired,
 };

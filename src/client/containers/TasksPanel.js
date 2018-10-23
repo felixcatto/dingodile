@@ -5,6 +5,7 @@ import * as actionCreators from '../actions/tasks';
 
 
 const mapStateToProps = (state, ownProps) => ({
+  taskAddingState: state.tasks.taskAddingState,
   searchText: state.tasks.searchText,
   activeCategoryId: ownProps.match.params.id || null,
 });
